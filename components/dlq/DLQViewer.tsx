@@ -1,74 +1,77 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import toast from "react-hot-toast";
-import { retryDelivery } from "@/services/dlq";
-
-const failedJobs = [
-  {
-    id: 1,
-    url: "https://test.com/webhook",
-    status: "dead",
-  },
-];
+import { useEffect, useState } from "react"
+import api from "@/services/api"
+import toast from "react-hot-toast"
 
 export default function DLQViewer() {
 
-  const [loadingId, setLoadingId] = useState<number | null>(null);
+  const [dead, setDead] = useState([])
+  const [loadingId, setLoadingId] = useState<number | null>(null)
+
+  useEffect(() => {
+    fetchDLQ()
+  }, [])
+
+  const fetchDLQ = async () => {
+    try {
+      const res = await api.get("/webhook/dlq")
+      setDead(res.data)
+    } catch {
+      toast.error("Failed to load DLQ")
+    }
+  }
+
+  const retry = async (id: number) => {
+    try {
+      setLoadingId(id)
+
+      await api.post(`/webhook/retry/${id}`)
+
+      toast.success("Retry triggered")
+
+      fetchDLQ()
+
+    } catch {
+      toast.error("Retry failed")
+    } finally {
+      setLoadingId(null)
+    }
+  }
 
   return (
-    <div className="mt-10">
+    <div>
+      <h2 className="text-xl font-semibold mb-4">Dead Letter Queue</h2>
 
-      <h2 className="text-2xl font-bold mb-4 text-white">
-        Dead Letter Queue
-      </h2>
+      {dead.length === 0 && (
+        <p className="text-gray-400">No failed deliveries</p>
+      )}
 
-      <div className="space-y-4">
-
-        {failedJobs.map((job) => (
-
+      <div className="space-y-3">
+        {dead.map((d: any) => (
           <div
-            key={job.id}
-            className="border border-gray-800 p-4 rounded-xl hover:border-gray-600 transition"
+            key={d.id}
+            className="border border-gray-800 p-4 rounded-xl"
           >
-
             <p>
-              <span className="font-bold">URL:</span>{" "}
-              {job.url}
+              <span className="font-bold">Delivery ID:</span>{" "}
+              {d.id}
             </p>
 
             <p>
               <span className="font-bold">Status:</span>{" "}
-              <span className="text-yellow-400">
-                {job.status}
-              </span>
+              <span className="text-red-400">{d.status}</span>
             </p>
 
             <button
-              onClick={async () => {
-                try {
-                  setLoadingId(job.id);
-
-                  await retryDelivery(job.id);
-
-                  toast.success("Retry triggered");
-                } catch {
-                  toast.error("Retry failed");
-                } finally {
-                  setLoadingId(null);
-                }
-              }}
-              className="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded mt-3 transition"
+              onClick={() => retry(d.id)}
+              className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded mt-3 text-black transition"
             >
-              {loadingId === job.id ? "Retrying..." : "Retry"}
+              {loadingId === d.id ? "Retrying..." : "Retry"}
             </button>
-
           </div>
-
         ))}
-
       </div>
-
     </div>
-  );
+  )
 }

@@ -19,7 +19,8 @@ export default function DashboardPage() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    if (!token) {
+    if (!token || token === "undefined") {
+      localStorage.removeItem("token");
       router.push("/login");
       return;
     }
@@ -49,7 +50,7 @@ export default function DashboardPage() {
 
         <div className="flex gap-4 items-center">
           
-          <CreateWebhook />
+          <CreateWebhook onCreated={fetchWebhooks} />
 
           <button
             onClick={() => {
@@ -65,7 +66,6 @@ export default function DashboardPage() {
 
       </div>
 
-      {/* Empty State */}
       {webhooks.length === 0 && (
         <p className="text-gray-400 mb-4">
           No webhooks created yet

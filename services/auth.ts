@@ -13,10 +13,15 @@ export const loginUser = async (
     }
   )
 
-  localStorage.setItem(
-    "token",
-    response.data.access_token
-  )
+  const token =
+    response.data?.access_token ||
+    response.data?.token
+
+  if (!token || token === "undefined") {
+    throw new Error("Invalid token from backend")
+  }
+
+  localStorage.setItem("token", token)
 
   return response.data
 }

@@ -41,15 +41,13 @@ export default function LoginPage() {
           onClick={async () => {
             try {
               setLoading(true);
-
-              const data = await loginUser(email, password);
-
-              localStorage.setItem("token", data.access_token);
-
+            
+              await loginUser(email, password);
+            
               toast.success("Login successful");
-
+            
               router.push("/dashboard");
-
+            
             } catch {
               toast.error("Invalid credentials");
             } finally {

@@ -1,38 +1,59 @@
 "use client"
 
+import { useEffect, useState } from "react"
+import api from "@/services/api"
+
 export default function StatsCards() {
 
+  const [stats, setStats] = useState({
+    success: 0,
+    failed: 0,
+    pending: 0
+  })
+
+  useEffect(() => {
+    fetchStats()
+  }, [])
+
+  const fetchStats = async () => {
+    try {
+      const res = await api.get("/deliveries")
+
+      const deliveries = res.data
+
+      let success = 0
+      let failed = 0
+      let pending = 0
+
+      deliveries.forEach((d: any) => {
+        if (d.status === "success") success++
+        else if (d.status === "failed" || d.status === "dead") failed++
+        else pending++
+      })
+
+      setStats({ success, failed, pending })
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
-    <div className="grid grid-cols-3 gap-4 mb-10">
+    <div className="flex gap-6">
 
-      <div className="border p-6 rounded-xl">
-        <h2 className="text-lg font-bold">
-          Total Delivered
-        </h2>
-
-        <p className="text-3xl mt-3">
-          120
-        </p>
+      <div className="bg-gray-900 border border-gray-800 p-5 rounded-xl w-40 text-center">
+        <p className="text-gray-400 text-sm">Total Delivered</p>
+        <p className="text-2xl font-bold mt-1">{stats.success}</p>
       </div>
 
-      <div className="border p-6 rounded-xl">
-        <h2 className="text-lg font-bold">
-          Failed Deliveries
-        </h2>
-
-        <p className="text-3xl mt-3">
-          8
-        </p>
+      <div className="bg-gray-900 border border-gray-800 p-5 rounded-xl w-40 text-center">
+        <p className="text-gray-400 text-sm">Failed Deliveries</p>
+        <p className="text-2xl font-bold mt-1">{stats.failed}</p>
       </div>
 
-      <div className="border p-6 rounded-xl">
-        <h2 className="text-lg font-bold">
-          Pending Jobs
-        </h2>
-
-        <p className="text-3xl mt-3">
-          14
-        </p>
+      <div className="bg-gray-900 border border-gray-800 p-5 rounded-xl w-40 text-center">
+        <p className="text-gray-400 text-sm">Pending Jobs</p>
+        <p className="text-2xl font-bold mt-1">{stats.pending}</p>
       </div>
 
     </div>

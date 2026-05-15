@@ -1,11 +1,9 @@
 import api from "./api"
 
-export const createWebhook = async (
-  target_url: string
-) => {
+export const createWebhook = async (url: string) => {
 
   const response = await api.post(
-    `/webhook/create?url=${target_url}`
+    `/webhook/create?url=${encodeURIComponent(url)}`
   )
 
   return response.data
