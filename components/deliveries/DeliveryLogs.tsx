@@ -18,7 +18,7 @@ export default function DeliveryLogs() {
   return (
     <div className="mt-10">
 
-      <h2 className="text-2xl font-bold mb-4">
+      <h2 className="text-2xl font-bold mb-4 text-white">
         Delivery Logs
       </h2>
 
@@ -28,21 +28,31 @@ export default function DeliveryLogs() {
 
           <div
             key={log.id}
-            className="border p-4 rounded-xl"
+            className="border border-gray-800 p-4 rounded-xl hover:border-gray-600 transition"
           >
 
             <p>
               <span className="font-bold">
                 Status:
               </span>{" "}
-              {log.status}
+              <span
+                className={
+                  log.status === "success"
+                    ? "text-green-400"
+                    : "text-red-400"
+                }
+              >
+                {log.status}
+              </span>
             </p>
 
             <p>
               <span className="font-bold">
                 Latency:
               </span>{" "}
-              {log.latency}
+              <span className="text-gray-300">
+                {log.latency}
+              </span>
             </p>
 
           </div>
