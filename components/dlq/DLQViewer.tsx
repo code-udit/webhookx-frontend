@@ -63,6 +63,18 @@ export default function DLQViewer() {
               <span className="text-red-400">{d.status}</span>
             </p>
 
+            <p className="break-all">
+              <span className="font-bold">Target URL:</span>{" "}
+              <a
+                href={d.webhook_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 underline"
+              >
+                {d.webhook_url}
+              </a>
+            </p>
+
             <button
               onClick={() => retry(d.id)}
               className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded mt-3 text-black transition"

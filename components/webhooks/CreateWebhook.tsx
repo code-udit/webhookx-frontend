@@ -36,9 +36,9 @@ export default function CreateWebhook({ onCreated }: { onCreated: () => void }) 
   }
 
   return (
-    <div className="border border-gray-700 p-5 rounded-xl bg-[#111111] shadow-sm">
+    <div className="bg-white border border-blue-200 p-5 rounded-xl shadow-sm w-[320px]">
 
-      <h2 className="text-xl font-semibold mb-4 text-white">
+      <h2 className="text-xl font-semibold mb-4 text-blue-900">
         Create Webhook
       </h2>
 
@@ -47,7 +47,7 @@ export default function CreateWebhook({ onCreated }: { onCreated: () => void }) 
         placeholder="Target URL"
         value={targetUrl}
         onChange={(e) => setTargetUrl(e.target.value)}
-        className="w-full border border-gray-700 bg-[#1a1a1a] text-white p-2.5 mb-3 rounded-lg outline-none focus:border-indigo-500"
+        className="w-full border border-blue-200 bg-white text-gray-900 p-2.5 mb-3 rounded-lg outline-none focus:ring-2 focus:ring-blue-400"
       />
 
       <input
@@ -55,13 +55,13 @@ export default function CreateWebhook({ onCreated }: { onCreated: () => void }) 
         placeholder="Event Type"
         value={eventType}
         onChange={(e) => setEventType(e.target.value)}
-        className="w-full border border-gray-700 bg-[#1a1a1a] text-white p-2.5 mb-4 rounded-lg outline-none focus:border-indigo-500"
+        className="w-full border border-blue-200 bg-white text-gray-900 p-2.5 mb-4 rounded-lg outline-none focus:ring-2 focus:ring-blue-400"
       />
 
       <button
         onClick={handleCreate}
         disabled={loading}
-        className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white px-4 py-2.5 rounded-lg transition"
+        className="w-full bg-blue-500 hover:bg-blue-600 disabled:opacity-50 text-white px-4 py-2.5 rounded-lg transition shadow"
       >
         {loading ? "Creating..." : "Create"}
       </button>

@@ -41,19 +41,19 @@ export default function StatsCards() {
   return (
     <div className="flex gap-6">
 
-      <div className="bg-gray-900 border border-gray-800 p-5 rounded-xl w-40 text-center">
-        <p className="text-gray-400 text-sm">Total Delivered</p>
-        <p className="text-2xl font-bold mt-1">{stats.success}</p>
+      <div className="bg-white border border-blue-200 p-5 rounded-xl w-40 text-center shadow-sm">
+        <p className="text-gray-600 text-sm">Total Delivered</p>
+        <p className="text-2xl font-bold mt-1 text-blue-900">{stats.success}</p>
       </div>
 
-      <div className="bg-gray-900 border border-gray-800 p-5 rounded-xl w-40 text-center">
-        <p className="text-gray-400 text-sm">Failed Deliveries</p>
-        <p className="text-2xl font-bold mt-1">{stats.failed}</p>
+      <div className="bg-white border border-blue-200 p-5 rounded-xl w-40 text-center shadow-sm">
+        <p className="text-gray-600 text-sm">Failed Deliveries</p>
+        <p className="text-2xl font-bold mt-1 text-blue-900">{stats.failed}</p>
       </div>
 
-      <div className="bg-gray-900 border border-gray-800 p-5 rounded-xl w-40 text-center">
-        <p className="text-gray-400 text-sm">Pending Jobs</p>
-        <p className="text-2xl font-bold mt-1">{stats.pending}</p>
+      <div className="bg-white border border-blue-200 p-5 rounded-xl w-40 text-center shadow-sm">
+        <p className="text-gray-600 text-sm">Pending Jobs</p>
+        <p className="text-2xl font-bold mt-1 text-blue-900">{stats.pending}</p>
       </div>
 
     </div>

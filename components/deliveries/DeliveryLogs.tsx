@@ -58,6 +58,18 @@ export default function DeliveryLogs() {
               <span className="font-bold">Delivery ID:</span>{" "}
               {log.id}
             </p>
+
+            <p className="break-all">
+              <span className="font-bold">Target URL:</span>{" "}
+              <a
+                href={log.webhook_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 underline"
+              >
+                {log.webhook_url}
+              </a>
+            </p>
           </div>
         ))}
       </div>
