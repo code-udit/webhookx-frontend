@@ -11,7 +11,9 @@ export const loginUser = async (
       email,
       password,
     }
-  )
+  ).catch(() => {
+    throw new Error("Login failed")
+  })
 
   const token =
     response.data?.access_token ||
