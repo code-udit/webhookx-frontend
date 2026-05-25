@@ -9,10 +9,6 @@ export default function DLQViewer() {
   const [dead, setDead] = useState([])
   const [loadingId, setLoadingId] = useState<number | null>(null)
 
-  useEffect(() => {
-    fetchDLQ()
-  }, [])
-
   const fetchDLQ = async () => {
     try {
       const res = await api.get("/webhook/dlq")
@@ -21,6 +17,16 @@ export default function DLQViewer() {
       toast.error("Failed to load DLQ")
     }
   }
+
+  useEffect(() => {
+    fetchDLQ()
+
+    const interval = setInterval(() => {
+      fetchDLQ()
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [])
 
   const retry = async (id: number) => {
     try {
