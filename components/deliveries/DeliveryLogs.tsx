@@ -13,7 +13,7 @@ export default function DeliveryLogs() {
 
   const fetchLogs = async () => {
     try {
-      const res = await api.get("/deliveries")
+      const res = await api.get("/deliveries/logs")
       setLogs(res.data)
     } catch (err) {
       console.log(err)
