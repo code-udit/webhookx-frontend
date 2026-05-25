@@ -7,10 +7,6 @@ export default function DeliveryLogs() {
 
   const [logs, setLogs] = useState([])
 
-  useEffect(() => {
-    fetchLogs()
-  }, [])
-
   const fetchLogs = async () => {
     try {
       const res = await api.get("/deliveries/logs")
@@ -19,6 +15,17 @@ export default function DeliveryLogs() {
       console.log(err)
     }
   }
+
+  useEffect(() => {
+    fetchLogs()
+
+    const interval = setInterval(() => {
+      fetchLogs()
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [])
+
 
   return (
     <div>
