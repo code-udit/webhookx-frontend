@@ -1,5 +1,9 @@
 # WebhookX Frontend
 
+### 👨‍💻 Developed By
+
+**Udit U Gunagi**
+
 A modern webhook monitoring dashboard built with Next.js, Tailwind CSS, and TypeScript for managing webhooks, monitoring deliveries, tracking failures, and analyzing webhook performance in real-time.
 
 ---
@@ -234,6 +238,14 @@ Allows users to:
 * Multi-user teams
 * Dark mode support
 * Charts and analytics
+
+---
+
+## 👨‍💻 Author
+
+Developed by **Udit U Gunagi**
+
+
 
 
 
