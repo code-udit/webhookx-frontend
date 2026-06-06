@@ -22,6 +22,19 @@ This frontend communicates with the FastAPI backend using JWT authentication and
 
 ---
 
+## 🔗 Links
+
+### 🌐 Live Demo
+https://webhookx-frontend-production.up.railway.app/
+
+### 💻 Frontend Repository
+https://github.com/code-udit/webhookx-frontend.git
+
+### ⚙️ Backend Repository
+https://github.com/code-udit/webhookx-backend.git
+
+---
+
 ## 🛠 Tech Stack
 
 - Next.js 15
